@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      {% load static %}
+    <title>To-Do List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+        <div class="head">
+            <h1>To-Do List</h1>
+            <div style="display: flex; align-items: center;">
+                <h3>{{foydalanuvchi}}</h3>
+                <a href="/logout/" style="text-decoration: none; color: red;">
+                Log out
+                </a>
+            </div>
+      </div>
+
+      <div class="task-add">
+        <form id="task-form" method="post">{% csrf_token %}
+            <div class="form1">
+              <input type="text" name="sarlavha" placeholder="Sarlavha">
+              <input type="date" name="sana">
+              <select name="holati">
+
+                <option class="opt">
+                    Bajarilmadi
+                </option>
+                  <option class="opt">
+                    Bajarilyapti
+                </option>
+                  <option class="opt">
+                    Tugallangan
+                </option>
+
+              </select>
+            </div>
+            <div class="fomr1">
+              <input type="text" name="batafsil" placeholder="Batafsil">
+              <button type="submit" class="btn">Qo'shish</button>
+            </div>
+          </form>
+      </div>
+      <hr style="margin: 10px 5px;">
+      <div class="task">
+          {% for reja in rejalar %}
+        <ul id="task-list">
+          <li>
+              <div>
+                  {{reja.sarlavha}}
+              </div>
+              <div>
+                    <input type="text" value="{{reja.holati}}" readonly >
+                    <input type="text" value="{{reja.sana}}" readonly>
+                    <button type="submit" class="edit"><a href="./edit.html">Edit</a></button>
+                    <button type="submit" class="delete"><a href="/reja_ochir/{{reja.id}}">O'chirish</a></button>
+              </div>
+          </li>
+        </ul>
+        <ul class="details">
+            {{reja.batafsil}}
+        </ul>
+          {% endfor %}
+      </div>
+
+    </div>
+  </body>
+</html>
